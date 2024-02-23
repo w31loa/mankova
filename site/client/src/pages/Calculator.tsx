@@ -1,6 +1,8 @@
 import { Button, InputLabel, MenuItem, Select } from '@mui/material'
 import React, { useState } from 'react'
 import { FC } from "react"
+import CalculatorModal from '../components/calculator/CalculatorModal'
+import { calculateCoast } from '../helpers/calculator.helper'
 
 const  Calculator:FC = () =>{
 
@@ -8,10 +10,15 @@ const  Calculator:FC = () =>{
  const [volume, setVolume]  = useState(0)
  const [weight, setWeight] = useState(0)
  const [dangerClass, setDangerClass] = useState('')
+ const [modalVisable, setModalVisable] = useState(false)
+ const [coast, setCoast] = useState(0)
 
+ console.log(calculateCoast(1000, 120,1111, 2))
 
  const btnHandler = ()=>{
-    console.log(dangerClass)
+
+  setModalVisable(true)
+  setCoast(calculateCoast(distance,volume,weight,dangerClass))
  }
 
   return (
@@ -42,9 +49,14 @@ const  Calculator:FC = () =>{
             <option value={9}>9 класс. Прочие опасные вещества</option>
           </select>
 
-          <button className='text-black py-2 px-2 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors w-1/3 mb-20' onClick={btnHandler}> Расчитать</button>
+          <button className='text-black py-2 px-2 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors w-1/3 mb-52' onClick={btnHandler}> Расчитать</button>
         </div>
 
+        {
+          modalVisable && (
+               <CalculatorModal coast={coast} setModalVisable={setModalVisable} />  
+          )
+        }
     </div>
   )
 }
