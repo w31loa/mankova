@@ -4,13 +4,17 @@ import { SlBasket } from "react-icons/sl";
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
 
-const Header:FC = () => {
+const Header = ({setAuthModalVisible}) => {
 
 //   const dispatch = useDispatch()
 //   const {user, isAuth} = useSelector(state=>{
 //       return state.user
 //   })
 
+
+  const btnHander = ()=>{
+    setAuthModalVisible(true)
+  }
 
   return (
     <div className="bg-gray-800 font-roboto py-2 text-white flex justify-center align-top">
@@ -46,7 +50,7 @@ const Header:FC = () => {
 {/*                      
                     <NavLink to={'/basket'} className=''><SlBasket size={30}/></NavLink>
                     <NavLink to={'/profile'} className='text-white' >{isAuth?(<span>Профиль</span>): (<span>Авторизация</span>)}</NavLink> */}
-                    <NavLink to={'/profile'} className='text-black py-2 px-2 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors' >Профиль</NavLink>
+                    <button className='text-black py-2 px-3 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors' onClick={btnHander}>Войти</button>
 
 
                 </div>

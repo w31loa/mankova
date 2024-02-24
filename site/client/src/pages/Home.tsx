@@ -6,7 +6,7 @@ import {FaCar } from 'react-icons/fa'
 import {DiYeoman} from 'react-icons/di'
 import {GiWallet } from 'react-icons/gi'
 import HomeTail from '../components/HomeTail'
-import СommentSlider from '../components/СommentSlider'
+import СommentSlider from '../components/comment/СommentSlider'
 
 const  Home:FC = () =>{
   const advantages = [

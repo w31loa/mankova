@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const HomeIntro = () => {
   return (
@@ -12,9 +13,9 @@ const HomeIntro = () => {
                 <div className="line-container">
                 <div className="line left"></div>
                 <div className="text">
-                    <a href="#calc">
+                    <Link to={'/calculator'}>
                     Расчитать цену доставки
-                    </a>
+                    </Link>
                 </div>
                 <div className="line right"></div>
                 </div>

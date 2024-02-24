@@ -13,7 +13,7 @@ const Footer:FC = () => {
 
 
   return (
-    <div className="bg-gray-800 font-roboto pt-2 text-white flex justify-center align-top ">
+    <div className="bg-gray-800 font-roboto pt-2 text-white flex justify-center align-top  ">
         <div className="container ">
 
 
