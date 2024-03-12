@@ -3,6 +3,9 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { SlBasket } from "react-icons/sl";
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
+import { useAuth } from '../hooks/useAuth.hook';
+import { removeTokenFromLocalStorage } from '../helpers/localStorage.helper';
+import { logout } from '../store/reducers/user.reducer';
 
 const Header = ({setAuthModalVisible}) => {
 
@@ -10,7 +13,17 @@ const Header = ({setAuthModalVisible}) => {
 //   const {user, isAuth} = useSelector(state=>{
 //       return state.user
 //   })
+  const isAuth = useAuth()
+  const dispatch = useDispatch()    
+  const navigate = useNavigate()
 
+  
+  const logoutHandler = ()=>{
+    dispatch(logout())
+    removeTokenFromLocalStorage('token')
+    
+    navigate('/')
+  }
 
   const btnHander = ()=>{
     setAuthModalVisible(true)
@@ -47,10 +60,17 @@ const Header = ({setAuthModalVisible}) => {
                 </nav>
                 
                 <div className="flex gap-[30px] items-center">
-{/*                      
-                    <NavLink to={'/basket'} className=''><SlBasket size={30}/></NavLink>
-                    <NavLink to={'/profile'} className='text-white' >{isAuth?(<span>Профиль</span>): (<span>Авторизация</span>)}</NavLink> */}
-                    <button className='text-black py-2 px-3 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors' onClick={btnHander}>Войти</button>
+                     
+                    {
+                      isAuth?<div className="">
+                          <NavLink to={'/profile'} className='text-white hover:text-yellow-400' ><span>Профиль</span></NavLink>
+                          <button className='ml-10 text-black py-2 px-3 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors' onClick={logoutHandler}>Выйти</button>
+                      </div>
+                      :<button className='text-black py-2 px-3 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors' onClick={btnHander}>Войти</button>
+                    }
+                    
+               
+                    
 
 
                 </div>

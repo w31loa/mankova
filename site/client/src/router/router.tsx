@@ -5,8 +5,8 @@ import Home from "../pages/Home";
 import React from "react";
 import About from "../pages/About";
 import Calculator from "../pages/Calculator";
-import Services from "../pages/Services";
-import Cars from "../pages/Cars";
+import Services, { serviceLoader } from "../pages/Services";
+import Cars, { carsLoader } from "../pages/Cars";
 import Profile from "../pages/Profile";
 
 export const router = createBrowserRouter([
@@ -25,11 +25,13 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'services',
-                element: <Services/>
+                element: <Services/>,
+                loader: serviceLoader
             },
             {
                 path: 'cars',
-                element:  <Cars/>
+                element:  <Cars/>,
+                loader: carsLoader
             },
             {
                 path: 'about',

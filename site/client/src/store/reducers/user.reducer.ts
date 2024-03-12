@@ -3,8 +3,16 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../store/store'
 
 // Define a type for the slice state
+
+export interface IUser{
+  id?:number
+  number: string
+  role: string
+  access_token: string
+}
+
 interface IUserState {
-  user:any,
+  user:  IUser|null,
   isAuth: boolean
 }
 
@@ -19,7 +27,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
         login:(state,action:PayloadAction<any>)=>{
-            state.user=action.payload
+            state.user=action.payload.user
             state.isAuth = true
         },
         logout: (state)=>{

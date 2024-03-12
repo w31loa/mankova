@@ -1,6 +1,12 @@
 import React from 'react'
+import { IService } from '../../pages/Services'
 
-const ServiceTile = ({}) => {
+interface Iprops{
+    service: IService
+}
+
+
+const ServiceTile = ({service}:Iprops) => {
   return (
     <div className="shadow-hover mb-10 w-1/4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
@@ -8,10 +14,10 @@ const ServiceTile = ({}) => {
         </a>
         <div className="p-5">
             <a href="#">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-yellow-400">Заголовок услуги</h5>
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-yellow-400">{service.title}</h5>
             </a>
-            <p className="mb-3 font-normal text-white">Описание услуги: Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quod autem itaque atque quos. Similique corporis adipisci recusandae magnam voluptates porro quisquam, at itaque aliquam praesentium aliquid deserunt dolores odit!</p>
-            <p className='text-gray-400  text-right mb-2'>100 рублей</p>
+            <p className="mb-3 font-normal text-white">Описание услуги: {service.description}</p>
+            <p className='text-gray-400  text-right mb-2'>{service.price} рублей</p>
             <a href="#" className="inline-flex items-center text-black py-3 px-2 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors min-w-full">
                     Сделать заказ
                 <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

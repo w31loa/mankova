@@ -1,17 +1,90 @@
-import React from 'react'
+import React, { FormEvent, useState } from 'react'
 import {InputMask} from 'primereact/inputmask'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { instance } from '../../api/axios.api'
+import { setTokenToLocalStorage } from '../../helpers/localStorage.helper'
+import { login } from '../../store/reducers/user.reducer'
+import { useUser } from '../../hooks/useUser.hook'
+import { toast } from 'react-toastify'
+
 
 const AuthModal = ({setAuthModalVisible}) => {
+
+
+    const [number , setNumber] = useState('')
+    const [password , setPassword] = useState('')
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [isLogin, setIsLogin] = useState(true)
+    const user = useUser()
 
     const btnHandler = ()=>{
         setAuthModalVisible(false)
     }
 
+    const regBtnHandler = (e)=>{
+
+      setIsLogin(false)
+    }
+
+    const logBtnHandler = (e)=>{
+     
+      setIsLogin(true)
+      console.log(isLogin)
+    }
+
+    const loginHandler = async (e:React.FormEvent<HTMLFormElement>)=>{
+      e.preventDefault()
+      
+    
+
+        try{
+          const res = await instance.post("/auth/login", {
+            number,
+            password
+          })
+      
+          const data = res.data
+          if(data){
+              setTokenToLocalStorage('token', data.access_token)
+              dispatch(login({user:data}))
+              toast.success('Успех!')
+            
+              setAuthModalVisible(false)
+           
+          }else{
+            toast.error('Неправильные номер или пароль!')
+
+           }
+        }
+        
+        
+        catch(err:any){
+          const error = err.response?.data.message
+          toast.error('Неправильные номер или пароль!')
+
+        }  
+    } 
+
+    const registrationHandler = async(e:React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault()
+        try {
+          const data = await instance.post('/user' ,  {number,password})
+          if(data){
+            toast.success('Аккаунт создан!')
+          }
+        } catch (err:any) {
+          const error = err.response?.data.message
+          toast.error(error.toString())
+        }
+      }
+
   return (
     <div  className=" overflow-y-auto overflow-x-hidden bg-slate-900/50 absolute z-50 items-center md:inset-0 h-[calc(100%-1rem)]  flex justify-center ">
          <div className="relative p-4 max-h-full">
+      <form className="relative bg-white rounded-lg shadow dark:bg-gray-700 transition-all" onSubmit={isLogin?loginHandler:registrationHandler}>
     
-            <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 transition-all">
             
                 <div className="flex items-center justify-center p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 className="text-xl font-semibold text-yellow-400 text-center"> 
@@ -32,30 +105,39 @@ const AuthModal = ({setAuthModalVisible}) => {
                     <div className="mb-5">
                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ваш номер телефона</label>
                         <InputMask
+                                    required
                                     className="w-72 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     type='text'
-                                    mask='8 (999) 999 99 99'
-                                    placeholder='8 (___) ___-__-__'
-                                    // onChange={(e) => setNumber(e.target.value)}
-                                    // value={number}
+                                    mask="+7(999) 999-9999" 
+                                    placeholder="+7(999) 999-9999" 
+                                    value={number} onChange={(e:any) => setNumber(e.target.value)}
                                 />
-                        {/* <input type="email" id="email" className="w-72 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required /> */}
                     </div>
                     
                     <div className="mb-5">
                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ваш пароль</label>
-                        <input type="password" id="password" className="w-72 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+                        <input 
+                              
+                             onChange={(e)=>{
+                             setPassword(e.target.value)
+                            }}
+                            type="password" id="password" className="w-72 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
                     </div>
                  
 
                 </div>
-
-                <button className='text-black py-5 px-2 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors w-full' >Войти</button>
+                <button type='submit' onClick={(e)=>{
+                                regBtnHandler(e)
+                            }} className='text-center w-full py-2 hover:text-yellow-400 transition-colors'>Регистрация</button>
+                <button  type='submit'  onClick={(e)=>{
+                                logBtnHandler(e)
+                            }}  className='text-black py-5 px-2 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors w-full' >Войти</button>
             
-            </div>
+            </form>
         </div>
     </div>
   )
 }
 
 export default AuthModal
+

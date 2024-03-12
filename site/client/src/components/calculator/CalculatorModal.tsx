@@ -2,10 +2,15 @@ import React from 'react'
 
 
 
-const CalculatorModal = ({coast, setModalVisable}) => {
+const CalculatorModal = ({coast, setModalVisable, setOrderModalVisible}) => {
     
     const btnHander = ()=>{
         setModalVisable(false)
+    }
+
+    const orderBtn= ()=>{
+        setModalVisable(false)
+        setOrderModalVisible(true)
     }
     
   return (
@@ -37,7 +42,7 @@ const CalculatorModal = ({coast, setModalVisable}) => {
                            
                         </div>
 
-                        <button className='text-black py-5 px-2 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors min-w-full' > Сделать заказ</button>
+                        <button onClick={orderBtn} className='text-black py-5 px-2 bg-yellow-400 rounded-md hover:bg-yellow-300 transition-colors min-w-full' > Сделать заказ</button>
                        
                     </div>
                 </div>
