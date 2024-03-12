@@ -25,6 +25,10 @@ const  Calculator:FC = () =>{
 
   return (
     <div className="container m-auto">
+            <div className="text-center text-4xl mt-10">
+                <span className='text-yellow-400'>РАССЧЕТ </span> 
+                <span className='text-white'>ЦЕНЫ</span>
+              </div>
         <form className="text-black flex flex-col items-center pt-10" onSubmit={(e)=>{
           btnHandler(e)
         }}>

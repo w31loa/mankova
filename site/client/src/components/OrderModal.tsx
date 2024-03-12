@@ -43,12 +43,13 @@ const OrderModal = ({setOrderModalVisible,
           weight: `${weight}`,
           dangerClass: `${dangerClass}`,
           date: date.toISOString(),
-          userId: user?.id,
           serviceId: Number(selected)
         }
 
         console.log(data)
         instance.post('/request' , data)
+        setOrderModalVisible(false)
+
         toast.success('Заявка отправлена!')
     }catch(err){
         const error = err.response?.data.message

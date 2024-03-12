@@ -22,8 +22,9 @@ export class CarService {
     if(car){
       throw new HttpException('Такая машина уже есть', HttpStatus.BAD_REQUEST)
     }
+    console.log(image)
     const filePath = await this.file.createFile(image, createCarDto.title)
-
+    
     createCarDto.img = filePath
 
     return await this.prisma.car.create({data:createCarDto});

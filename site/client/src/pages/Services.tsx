@@ -24,6 +24,10 @@ const  Services:FC = () =>{
 
   return (
     <div className="container mb-auto mx-auto">
+           <div className="text-center text-4xl mt-10">
+                <span className='text-yellow-400'>НАШИ </span> 
+                <span className='text-white'>УСЛУГИ</span>
+              </div>
       <div className="flex flex-wrap gap-x-10 justify-center pt-10">
          {
             services.map((service, i)=> (

@@ -8,6 +8,7 @@ import Calculator from "../pages/Calculator";
 import Services, { serviceLoader } from "../pages/Services";
 import Cars, { carsLoader } from "../pages/Cars";
 import Profile from "../pages/Profile";
+import Admin from "../pages/Admin";
 
 export const router = createBrowserRouter([
     {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
             {
                 path: 'profile',
                 element: <Profile/>
+            },
+            {
+                path: 'admin',
+                element: <Admin/>
             }
         ]
     }

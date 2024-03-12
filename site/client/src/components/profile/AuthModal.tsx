@@ -47,6 +47,7 @@ const AuthModal = ({setAuthModalVisible}) => {
       
           const data = res.data
           if(data){
+              // console.log(data)
               setTokenToLocalStorage('token', data.access_token)
               dispatch(login({user:data}))
               toast.success('Успех!')

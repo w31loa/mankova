@@ -13,7 +13,7 @@ export class RequestService {
 
     const newReq = await this.prisma.request.create({
       data:  createRequestDto
-    })
+    }) 
     return newReq;
   }
 

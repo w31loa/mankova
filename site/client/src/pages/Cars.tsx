@@ -6,6 +6,7 @@ import { useLoaderData } from 'react-router-dom'
 
 
 export interface ICar{
+  id: number
   title:string
   description: string
   img: string
@@ -23,6 +24,10 @@ const  Cars:FC = () =>{
 
   return (
     <div className="container m-auto">
+            <div className="text-center text-4xl mt-10">
+                <span className='text-yellow-400'>НАШ </span> 
+                <span className='text-white'>АВТОПАРК</span>
+              </div>
         <div className="flex flex-col items-center mb-40">
           {
             cars.map((car, i)=> (

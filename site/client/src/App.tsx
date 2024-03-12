@@ -20,6 +20,7 @@ function App() {
           const data = await instance.get('/auth/profile')
 
           if(data){
+            console.log(data)
             dispatch(login({user:{...data.data, access_token:token}}))
           }else{
             dispatch(logout())
