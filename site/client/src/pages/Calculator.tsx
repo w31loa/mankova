@@ -15,7 +15,7 @@ const  Calculator:FC = () =>{
  const [coast, setCoast] = useState(0)
  const [orderModalVisble, setOrderModalVisible] = useState(false)
 
- console.log(calculateCoast(1000, 120,1111, 2))
+//  console.log(calculateCoast(1000, 120,1111, 2))
 
  const btnHandler = (e)=>{
   e.preventDefault()

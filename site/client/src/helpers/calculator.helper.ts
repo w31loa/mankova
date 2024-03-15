@@ -7,11 +7,11 @@ export const calculateCoast = (distance, volume, weight, dangerClass)=>{
 
 
 const volumeCalc = (volume)=>{
-    return volume/100
+    return volume/10
 }
 
 const weightCalc = (weight)=>{
-    return weight/1000
+    return weight/10
 }
 
 
