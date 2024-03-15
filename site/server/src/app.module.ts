@@ -6,8 +6,9 @@ import { UserModule } from './user/user.module';
 import { ServiceModule } from './service/service.module';
 import { CarModule } from './car/car.module';
 import { RequestModule } from './request/request.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
-  imports: [AuthModule, FileModule, UserModule, ServiceModule, CarModule, RequestModule],
+  imports: [AuthModule, FileModule, UserModule, ServiceModule, CarModule, RequestModule, MailModule],
 })
 export class AppModule {}

@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Request" ADD COLUMN     "email" TEXT NOT NULL DEFAULT 'test@gmail.com',
+ALTER COLUMN "date" SET DEFAULT CURRENT_TIMESTAMP;

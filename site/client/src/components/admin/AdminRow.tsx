@@ -16,6 +16,8 @@ const AdminRow = ({order}: Iprop) => {
             status: e.target.value
         }
         instance.patch(`request/${order.id}` , data)
+        order.status=e.target.value
+        
         toast.success('Статус изменен')
     }
 
@@ -25,33 +27,36 @@ const AdminRow = ({order}: Iprop) => {
         {order.id}
     </th>
 
-    <td className="px-6 py-4">
+    <td className="px-2 py-4">
         {order.phoneNumber}
     </td>
-    <td className="px-6 py-4">
+    <td className="px-2 py-4">
         {order.name}
     </td>
-    <td className="px-6 py-4">
+    <td className="px-2 py-4">
+        {order.email}
+    </td>
+    <td className="px-2 py-4">
         {order.distance}
     </td>
-    <td className="px-6 py-4">
+    <td className="px-2 py-4">
         {order.value}
     </td>
-    <td className="px-6 py-4">
+    <td className="px-2 py-4">
         {order.weight}
     </td>
-    <td className="px-6 py-4">
+    <td className="px-2 py-4">
         {order.dangerClass? order.dangerClass : '-'}
     </td>
-    <td className="px-6 py-4">
+    <td className="px-2 py-4">
         {formatDateFromIsoToLocal(order.date)}
     </td>
-    <td className="px-6 py-4">
+    <td className="px-2 py-4">
         {order.service?.title? order.service.title : '-'}
     </td>
     <td className="pr-2">
   
-        <select onChange={statusHandler} id="countries" className="bg-gray-800 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <select onChange={statusHandler} disabled={order.status=='Выполнен'?true:false} id="countries" className="bg-gray-800 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option selected>      {order.status}</option>
             <option value="Ожидание">Ожидание</option>
             <option value="В пути">В пути</option>

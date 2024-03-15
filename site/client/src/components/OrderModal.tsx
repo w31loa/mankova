@@ -19,6 +19,8 @@ const OrderModal = ({setOrderModalVisible,
 
     const[services , setService] = useState<IService[]>()
     const[selected , setSelected] = useState(null)
+    const [email, setEmail] = useState('')
+
     const getServicesData = async()=>{
         const {data}= await instance.get('service')
         setService(data)
@@ -38,6 +40,7 @@ const OrderModal = ({setOrderModalVisible,
         const data = {
             phoneNumber: number,
           name: name, 
+          email: email,
           distance: `${distance}`,
           value: `${volume}`,
           weight: `${weight}`,
@@ -112,12 +115,21 @@ const OrderModal = ({setOrderModalVisible,
                                 </div>   
 
                                 <div className="mb-5">    
-                                    <label htmlFor="email" className="block    mb-4 text-xl font-medium text-yellow-400" >Имя</label>
+                                    <label htmlFor="text" className="block    mb-4 text-xl font-medium text-yellow-400" >Имя</label>
                                     <input
                                     onChange={(e)=>{
                                         setName(e.target.value)
                                     }}
                                     type="text" id="text" className= " py-2 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-10" placeholder="Иван Иванов" required />
+                                </div>   
+
+                                <div className="mb-5">    
+                                    <label htmlFor="email" className="block    mb-4 text-xl font-medium text-yellow-400" >Элекронная почта</label>
+                                    <input
+                                    onChange={(e)=>{
+                                        setEmail(e.target.value)
+                                    }}
+                                    type="email" id="email" className= " py-2 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-10" placeholder="mail@mail.ru" required />
                                 </div>   
 
                                 <label htmlFor="countries" className="block    mb-4 text-xl font-medium text-yellow-400">Выберете дополнительную услугу</label>

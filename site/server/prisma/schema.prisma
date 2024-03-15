@@ -54,6 +54,8 @@ model Request{
 
   phoneNumber String
 
+  email String @default("test@gmail.com")
+
   name String
 
 
@@ -67,7 +69,7 @@ model Request{
 
   dangerClass String
 
-  date DateTime
+  date DateTime @default(now())
 
 
 

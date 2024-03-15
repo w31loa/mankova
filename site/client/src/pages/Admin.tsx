@@ -46,13 +46,17 @@ const Admin = () => {
     }
 
     const deleteCarHandler = ()=>{
-        instance.delete(`car/${selectedCar}`)
-        toast.success('Удалено!')
+        instance.delete(`car/${selectedCar}`).then(()=>{
+            toast.success('Удалено!')
+
+        })
     }
 
     const deleteServiceHandler = ()=>{
-        instance.delete(`service/${selectedService}`)
-        toast.success('Удалено!')
+        instance.delete(`service/${selectedService}`).then(()=>{
+            toast.success('Удалено!')
+            
+        })
     }
 
     
