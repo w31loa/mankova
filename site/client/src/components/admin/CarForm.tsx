@@ -32,10 +32,12 @@ const CarForm = ({car , isEdit}:Props) => {
         e.preventDefault()
         const data = {
             title: title,
-            description : description
+            description : description,
+            image: file
+
         }
 
-        instance.patch(`car/${car?.id}`, data)
+        multiInstance.patch(`car/${car?.id}`, data)
         toast.success('Машина изменена')
     }
 
@@ -66,9 +68,7 @@ const CarForm = ({car , isEdit}:Props) => {
         </div> 
 
 
-        {
-            isEdit?<></>
-            :<div className="mb-5">    
+            <div className="mb-5">    
             <label htmlFor="email" className="block    mb-4 text-xl font-medium text-gray-700" >Фото</label>
             
             <input onChange={(e)=>{
@@ -80,9 +80,8 @@ const CarForm = ({car , isEdit}:Props) => {
             <p className="mt-1 text-sm text-gray-500" id="file_input_help">SVG, PNG, JPG.</p>
 
             </div>   
-        }
+        
    
-
         <button className={(isEdit?'bg-yellow-400 hover:bg-yellow-300':'bg-green-400 hover:bg-green-300 ')+ 'text-black w-full py-2 px-3 rounded-md  transition-colors'} >{isEdit?"Изменить": "Добавить"}</button>
 
         </form>

@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCarDto } from './dto/create-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma } from '@prisma/client';
+import { Car, Prisma } from '@prisma/client';
 import { FileService } from 'src/file/file.service';
 
 @Injectable()
@@ -38,7 +38,17 @@ export class CarService {
     return `This action returns a #${id} car`;
   }
 
-  async update(id: number, updateCarDto: Prisma.CarUpdateInput) {
+  async update(id: number, updateCarDto: Partial<Car>, image) {
+
+    if(image){
+     
+      const filePath = await this.file.createFile(image ,updateCarDto.title  )
+      updateCarDto.img = filePath
+      console.log(filePath)
+      
+    }
+    console.log(updateCarDto)
+
     return await this.prisma.car.update({
       where:{
         id
