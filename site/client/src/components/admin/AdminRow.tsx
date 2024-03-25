@@ -34,6 +34,12 @@ const AdminRow = ({order}: Iprop) => {
         {order.name}
     </td>
     <td className="px-2 py-4">
+        {order.request_from}
+    </td>
+    <td className="px-2 py-4">
+        {order.request_to}
+    </td>
+    <td className="px-2 py-4">
         {order.email}
     </td>
     <td className="px-2 py-4">

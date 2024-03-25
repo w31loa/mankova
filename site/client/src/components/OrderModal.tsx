@@ -44,9 +44,11 @@ const OrderModal = ({setOrderModalVisible,
           distance: `${distance}`,
           value: `${volume}`,
           weight: `${weight}`,
+          request_from: `${from}`,
+          request_to:  `${to}`,
           dangerClass: `${dangerClass}`,
           date: date.toISOString(),
-          serviceId: Number(selected)
+          serviceId: Number(selected)==0?null:Number(selected)
         }
 
         console.log(data)
@@ -69,6 +71,8 @@ const OrderModal = ({setOrderModalVisible,
     const isAuth = useAuth()
     const [number,setNumber] = useState('')
     const [name, setName] = useState('')
+    const [from, setFrom] = useState('')
+    const [to, setTo] = useState('')
 
     // if(isAuth){
     //     setNumber(user?.number||'')
@@ -121,6 +125,22 @@ const OrderModal = ({setOrderModalVisible,
                                         setName(e.target.value)
                                     }}
                                     type="text" id="text" className= " py-2 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-10" placeholder="Иван Иванов" required />
+                                </div>   
+                                <div className="mb-5">    
+                                    <label htmlFor="text" className="block    mb-4 text-xl font-medium text-yellow-400" >Откуда доставить</label>
+                                    <input
+                                    onChange={(e)=>{
+                                        setFrom(e.target.value)
+                                    }}
+                                    type="text" id="text" className= " py-2 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-10" placeholder="Оренбург" required />
+                                </div>   
+                                <div className="mb-5">    
+                                    <label htmlFor="text" className="block    mb-4 text-xl font-medium text-yellow-400" >Куда доставить</label>
+                                    <input
+                                    onChange={(e)=>{
+                                        setTo(e.target.value)
+                                    }}
+                                    type="text" id="text" className= " py-2 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-10" placeholder="Москва " required />
                                 </div>   
 
                                 <div className="mb-5">    

@@ -62,6 +62,10 @@ model Request{
   status String @default("Ожидание")
 
   distance String
+
+  request_from String  @default("_")
+
+  request_to String @default("_")
   
   value String
 

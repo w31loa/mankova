@@ -14,6 +14,8 @@ export interface IAllOrder{
     distance: string
     value: string
     weight: string
+    request_from: string,
+    request_to: string,
     dangerClass: string
     date: string
     email: string
@@ -54,6 +56,12 @@ const AdminTable = () => {
                     Имя
                 </th>
                 <th scope="col" className="px-2 py-3 text-yellow-400">
+                    Откуда
+                </th>
+                <th scope="col" className="px-2 py-3 text-yellow-400">
+                    Куда
+                </th>
+                <th scope="col" className="px-2 py-3 text-yellow-400">
                     Расстояние
                 </th>
                 <th scope="col" className="px-2 py-3 text-yellow-400">
@@ -63,7 +71,7 @@ const AdminTable = () => {
                     Вес
                 </th>
                 <th scope="col" className="px-2 py-3 text-yellow-400">
-                    Класс опасности
+                    КО
                 </th>
                 <th scope="col" className="px-2 py-3 text-yellow-400">
                     Дата

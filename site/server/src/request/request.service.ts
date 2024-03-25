@@ -13,6 +13,8 @@ export class RequestService {
 
   async create(createRequestDto: Prisma.RequestCreateInput) {
 
+    console.log(createRequestDto)
+
     const newReq = await this.prisma.request.create({
       data:  createRequestDto
     }) 
