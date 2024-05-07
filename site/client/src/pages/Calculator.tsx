@@ -4,6 +4,7 @@ import { FC } from "react"
 import CalculatorModal from '../components/calculator/CalculatorModal'
 import { calculateCoast } from '../helpers/calculator.helper'
 import OrderModal from '../components/OrderModal'
+import yaps from 'ymaps'
 
 const  Calculator:FC = () =>{
 
@@ -22,6 +23,76 @@ const  Calculator:FC = () =>{
   setModalVisable(true)
   setCoast(calculateCoast(distance,volume,weight,dangerClass))
  }
+
+//  yaps.ready(init);
+
+function init() {
+    // Стоимость за километр.
+    var DELIVERY_TARIFF = 20,
+    // Минимальная стоимость.
+        MINIMUM_COST = 500,
+        myMap = new yaps.Map('map', {
+            center: [60.906882, 30.067233],
+            zoom: 9,
+            controls: []
+        }),
+    // Создадим панель маршрутизации.
+        routePanelControl = new yaps.control.RoutePanel({
+            options: {
+                // Добавим заголовок панели.
+                showHeader: true,
+                title: 'Расчёт доставки'
+            }
+        }),
+        zoomControl = new yaps.control.ZoomControl({
+            options: {
+                size: 'small',
+                float: 'none',
+                position: {
+                    bottom: 145,
+                    right: 10
+                }
+            }
+        });
+    // Пользователь сможет построить только автомобильный маршрут.
+    routePanelControl.routePanel.options.set({
+        types: {auto: true}
+    });
+
+    // Если вы хотите задать неизменяемую точку "откуда", раскомментируйте код ниже.
+    /*routePanelControl.routePanel.state.set({
+        fromEnabled: false,
+        from: 'Москва, Льва Толстого 16'
+     });*/
+
+    myMap.controls.add(routePanelControl).add(zoomControl);
+
+    // Получим ссылку на маршрут.
+    routePanelControl.routePanel.getRouteAsync().then(function (route) {
+
+        // Зададим максимально допустимое число маршрутов, возвращаемых мультимаршрутизатором.
+        route.model.setParams({results: 1}, true);
+
+        // Повесим обработчик на событие построения маршрута.
+        route.model.events.add('requestsuccess', function () {
+
+            var activeRoute = route.getActiveRoute();
+            if (activeRoute) {
+                // Получим протяженность маршрута.
+                var length = route.getActiveRoute().properties.get("distance"),
+                // Создадим макет содержимого балуна маршрута.
+                    balloonContentLayout = yaps.templateLayoutFactory.createClass(
+                        '<span>Расстояние: ' + length.text + '.</span><br/>' )
+                    
+                // Зададим этот макет для содержимого балуна.
+                route.options.set('routeBalloonContentLayout', balloonContentLayout);
+                // Откроем балун.
+                activeRoute.balloon.open();
+            }
+        });
+
+    });
+  }
 
   return (
     <div className="container m-auto">
